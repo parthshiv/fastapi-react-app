@@ -1,33 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [todos, setTodos] = useState([])
+  
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/todos")
+      .then(response => response.json())
+      .then(data => setTodos(data.todos))          
+      
+  }, [])
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="container fluid">
+        <h1 className="mt-3">Todo List</h1>
+        <div className='row'>
+          {todos.map((todo) => (
+            <div className='col-4'>
+              <div key={todo.id} className="card m-3">
+                <div className="card-body">
+                  <h5 className="card-title">{todo.task}</h5>
+                  <h6 className="card-subtitle mb-2 text-muted">ID: {todo.id}</h6>
+                  <p className="card-text">{todo.desc}</p>
+                  <p className="card-text">Completed: {todo.completed ? "Yes" : "No"}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
