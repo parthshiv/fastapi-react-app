@@ -103,68 +103,68 @@ frontend/
 
 ---
 
-\## Important Commands
+## Important Commands
 
-\### Python Virtual Environment
+### Python Virtual Environment
 
 python -m venv venv  
-venv\Scripts\activate  
+venv\Scripts\activate
 
 Used to create and activate an isolated Python environment.
 
 ---
 
-\### Backend Dependencies
+### Backend Dependencies
 
 pip install fastapi uvicorn sqlalchemy alembic psycopg2-binary python-dotenv  
-pip freeze > requirements.txt  
+pip freeze > requirements.txt
 
 Used to install backend dependencies and lock versions.
 
 ---
 
-\### Database Migrations (Alembic)
+### Database Migrations (Alembic)
 
 alembic init alembic  
 alembic revision --autogenerate -m "initial migration"  
 alembic upgrade head  
-alembic current  
+alembic current
 
 Used to manage database schema changes safely.
 
 ---
 
-\### Start Backend Server
+### Start Backend Server
 
-uvicorn app.main:app --reload  
+uvicorn app.main:app --reload
 
 Used to start FastAPI development server.
 
 ---
 
-\### React Project Setup (Vite)
+### React Project Setup (Vite)
 
 npm create vite@latest frontend  
 cd frontend  
 npm install  
-npm run dev  
+npm run dev
 
 Used to scaffold and run the React frontend.
 
 ---
 
-\### Bootstrap Installation
+### Bootstrap Installation
 
-npm install bootstrap  
+npm install bootstrap
 
 Used to add Bootstrap for responsive UI styling.
 
 ---
 
-\### Frontend Production Build
+### Frontend Production Build
 
 npm run build  
-npm run preview  
+npm run preview
 
 Used to generate and preview production build.
 
