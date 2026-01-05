@@ -11,21 +11,21 @@ export default function AddToDoModal({todoList, setTodoList}) {
     const handleShow = () => setShow(true);
 
     // form field settings
-    const [status, setStatus] = useState(false);
+    const [completed, setStatus] = useState(false);
     const [task, setTask] = useState('');
-    const [desc, setDesc] = useState('');
+    const [description, setDesc] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(todoList.length + 1)
+        //console.log(todoList.length + 1)
         const newTodo = {
             id: todoList.length + 1,
             task: task,
-            desc: desc,
-            completed: status
+            description: description,
+            completed: completed
         };
         
-        fetch("http://127.0.0.1:8000/add_todo_item", {
+        fetch("http://127.0.0.1:8000/todos/add_todo_item", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newTodo),
@@ -63,9 +63,9 @@ export default function AddToDoModal({todoList, setTodoList}) {
                         <Form.Label>Description</Form.Label>
                         <Form.Control 
                             type="text" 
-                            name='desc' 
+                            name='description' 
                             placeholder="Enter description" 
-                            value={desc}
+                            value={description}
                             onChange={e => setDesc(e.target.value)}
                             required/>
                     </Form.Group>
@@ -74,7 +74,7 @@ export default function AddToDoModal({todoList, setTodoList}) {
                             type="checkbox"
                             label="Completed"
                             name='completed'
-                            checked={status}
+                            checked={completed}
                             onChange={e => setStatus(e.target.checked)}
                         />
                     </Form.Group>

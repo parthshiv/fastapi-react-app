@@ -2,7 +2,7 @@ export default function updateTodoStatus (todo, setTodoList) {
     
   if (!todo) return;
 
-  fetch(`http://localhost:8000/update_todo_item/${todo.id}`, {
+  fetch(`http://localhost:8000/todos/update_todo_status/${todo.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
@@ -14,7 +14,7 @@ export default function updateTodoStatus (todo, setTodoList) {
     //  console.log("Update response:", data);
     setTodoList(prev =>
           prev.map(todo =>
-              todo.id === data.todo.id ? data.todo : todo
+              todo.id === data.id ? data : todo
           )
       );
       

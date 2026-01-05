@@ -7,19 +7,15 @@ import Form from 'react-bootstrap/Form';
 function UpdateToDoModal({ show, handleClose, todo, setTodoList }) {
 
   const [task, setTask] = useState('');
-  const [desc, setDesc] = useState('');
+  const [description, setDescription] = useState('');
   const [completed, setCompleted] = useState(false);
 
   
   useEffect(() => {
-    if (todo) {
-      if(todo.changeRequest === 'status') {
-        handleStatusChange(todo);
-        return;
-      }
+    if (todo) {     
       // console.log("Editing todo:", todo);
       setTask(todo.task);
-      setDesc(todo.desc);
+      setDescription(todo.description);
       setCompleted(todo.completed);
     }
   }, [todo]);
@@ -28,7 +24,7 @@ function UpdateToDoModal({ show, handleClose, todo, setTodoList }) {
     e.preventDefault();
     if (!todo) return;
 
-    fetch(`http://localhost:8000/update_todo_item/${todo.id}`, {
+    fetch(`http://localhost:8000/todos/update_todo_item/${todo.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -36,7 +32,7 @@ function UpdateToDoModal({ show, handleClose, todo, setTodoList }) {
       body: JSON.stringify({
         id: todo.id,
         task,
-        desc,
+        description,
         completed
       })
     })
@@ -45,7 +41,7 @@ function UpdateToDoModal({ show, handleClose, todo, setTodoList }) {
       // console.log("Update response:", data);
       setTodoList(prev =>
             prev.map(todo =>
-                todo.id === data.todo.id ? data.todo : todo
+                todo.id === data.id ? data : todo
             )
         );
         handleClose();
@@ -79,11 +75,11 @@ function UpdateToDoModal({ show, handleClose, todo, setTodoList }) {
                 <Form.Label>Description</Form.Label>
                 <Form.Control 
                     type="text" 
-                    name='desc' 
+                    name='description' 
                     label="Description"
                     placeholder="Enter Description" 
-                    value={desc}
-                    onChange={e => setDesc(e.target.value)}
+                    value={description}
+                    onChange={e => setDescription(e.target.value)}
                     required/>
             </Form.Group>
             <Form.Group className="mb-3" >                

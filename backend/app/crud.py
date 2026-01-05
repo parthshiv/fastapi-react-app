@@ -25,6 +25,15 @@ def update_todo(db: Session, todo_id: int, task: str, completed: bool, descripti
     db.refresh(todo)
     return todo
 
+def update_todo_status(db: Session, todo_id: int, completed: bool):
+    todo = get_todo(db, todo_id)
+    if not todo:
+        return None
+    todo.completed = completed
+    db.commit()
+    db.refresh(todo)
+    return todo
+
 def delete_todo(db: Session, todo_id: int):
     todo = get_todo(db, todo_id)
     if not todo:

@@ -44,11 +44,11 @@ export default function ToDoList(props) {
                                     </Button>
                                 <Card.Body>
                                     <Card.Title>{todo.task}</Card.Title>
-                                    <Card.Text>{todo.desc}</Card.Text>
+                                    <Card.Text>{todo.description}</Card.Text>
 
                                     <Button
                                         variant={todo.completed ? 'success' : 'warning'}
-                                        onClick={() => props.onStatusChange({id: todo.id, completed: !todo.completed, changeRequest: 'status'})}
+                                        onClick={() => props.onStatusChange({id: todo.id, completed: !todo.completed})}
                                     >
                                         {todo.completed ? 'Completed' : 'Pending'}
                                     </Button>

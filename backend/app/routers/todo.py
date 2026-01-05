@@ -27,6 +27,13 @@ def update(todo_id: int, todo: schemas.TodoUpdate, db: Session = Depends(get_db)
         raise HTTPException(status_code=404, detail="Todo not found")
     return todo
 
+@router.put("/update_todo_status/{todo_id}", response_model=schemas.TodoResponse)
+def update_status(todo_id: int, todo: schemas.TodoStatusUpdate, db: Session = Depends(get_db)):
+    todo = crud.update_todo_status(db, todo_id, todo.completed)
+    if not todo:
+        raise HTTPException(status_code=404, detail="Todo not found")
+    return todo
+
 @router.delete("/delete_todo_item/{todo_id}")
 def delete(todo_id: int, db: Session = Depends(get_db)):
     todo = crud.delete_todo(db, todo_id)

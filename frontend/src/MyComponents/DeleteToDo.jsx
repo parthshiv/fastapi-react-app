@@ -2,20 +2,20 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
-function DeleteToDoModal({ show, handleClose, todo_id, setTodoList }) {
+function DeleteToDoModal({ show, handleClose, todo_id, fetchTodos }) {
   
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://127.0.0.1:8000/delete_todo_item/${todo_id}`, {
+    fetch(`http://127.0.0.1:8000/todos/delete_todo_item/${todo_id}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ todo_id })
         })
-        .then(res => res.json())
-        .then( (data) =>{
-            setTodoList(data.todos)
-            handleClose();
+        .then(res => {
+          if (!res.ok) throw new Error("Delete failed");
+            fetchTodos();
+          handleClose();
         });
   };
   if (!todo_id) return null; // safety

@@ -5,18 +5,21 @@ import UpdateToDoModal from './UpdateToDo';
 import updateTodoStatus from './UpdateStatus';
 import DeleteToDoModal from './DeleteToDo';
 
+
 export default function ToDos() {
     
     const [todoList, setTodoList] = useState([])
     
+    const fetchTodos = () => {
+        fetch("http://127.0.0.1:8000/todos/")
+            .then(res => res.json())
+            .then(data => setTodoList(data))
+            .catch(err => console.error(err));
+    };
     // Fetch todos when ToDos component mounts
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/todos")
-        .then(response => response.json())
-        .then(data => setTodoList(data.todos))          
-        
-    }, [])  
-   
+        fetchTodos();
+    }, []);
     // modal control
     const [showUpdate, setShowUpdate] = useState(false);
     const [selectedTodo, setSelectedTodo] = useState(null);
@@ -57,7 +60,7 @@ export default function ToDos() {
                 show={showUpdate}
                 handleClose={closeUpdateModal}
                 todo_id={deleteTodo}
-                setTodoList={setTodoList}
+                fetchTodos={fetchTodos}
             />
             
             
